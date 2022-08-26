@@ -12,6 +12,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 import cv2
 from datetime import datetime
+import os
 
 
 class Ui_MainWindow(object):
@@ -213,7 +214,9 @@ class ImageWorker(QThread):
 		image = self.frame
 		now = datetime.now() 
 		filepath = now.strftime("%m-%d-%Y_%H:%M:%S")
-		print(filepath)
+		
+		if not os.path.exists("images"):
+			os.mkdir("images", 0755 );
 		filepath = f"images/{filepath}.png"
 		cv2.imwrite(filepath,image)
 
