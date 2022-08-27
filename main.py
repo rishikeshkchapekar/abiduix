@@ -14,6 +14,12 @@ import cv2
 from datetime import datetime
 import os
 
+# For using picam--------------------------#
+import time
+from picamera.array import PiRGBArray
+from picamera import PiCamera
+#------------------------------------------#
+
 
 class Ui_MainWindow(object):
 	def setupUi(self, MainWindow):
@@ -198,6 +204,20 @@ class ImageWorker(QThread):
 
 		Capture = cv2.VideoCapture(0)
 		
+		# --------------------picam-------------------#
+		# camera = PiCamera()
+		# camera.resolution = (640, 480)
+		# rawCapture = PiRGBArray(camera,size=(640, 480))
+		# time.sleep(0.1)
+		# for frame in camera.capture_continuous(raw_capture, format="bgr", use_video_port=True):
+		# 	_image = frame.array
+		# 	image = cv2.cvtColor(_image,cv2.COLOR_BGR2RGB)
+		# 	self.frame = _image
+		# 	flipped = cv2.flip(image,1)
+		# 	convert_qt = QImage(flipped.data,flipped.shape[1],flipped.shape[0],QImage.Format_RGB888)			
+		# 	self.ImageUpdate.emit(convert_qt)
+		#-----------------------------------------------#
+
 		while self.ThreadActive:
 			if self.showPreview:
 				ret,frame = Capture.read()
@@ -216,7 +236,7 @@ class ImageWorker(QThread):
 		filepath = now.strftime("%m-%d-%Y_%H:%M:%S")
 		
 		if not os.path.exists("images"):
-			os.mkdir("images", 0755 );
+			os.mkdir("images",'0755');
 		filepath = f"images/{filepath}.png"
 		cv2.imwrite(filepath,image)
 
