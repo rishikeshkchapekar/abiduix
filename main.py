@@ -16,7 +16,7 @@ import os
 
 # For using picam--------------------------#
 import time
-from picamera.array import PiRGBArray
+import io
 from picamera import PiCamera
 #------------------------------------------#
 
@@ -207,9 +207,11 @@ class ImageWorker(QThread):
 		# --------------------picam-------------------#
 		# camera = PiCamera()
 		# camera.resolution = (640, 480)
-		# rawCapture = PiRGBArray(camera,size=(640, 480))
 		# time.sleep(0.1)
+		# stream = io.BytesIO()
 		# for frame in camera.capture_continuous(raw_capture, format="bgr", use_video_port=True):
+		# 	stream.truncate()
+		# 	stream.seek(0)	
 		# 	_image = frame.array
 		# 	image = cv2.cvtColor(_image,cv2.COLOR_BGR2RGB)
 		# 	self.frame = _image
